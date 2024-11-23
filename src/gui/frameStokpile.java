@@ -4,23 +4,36 @@
  */
 package gui;
 
-import crud.crud;
-import javax.swing.JOptionPane;
+import config.crud;
+import javax.swing.*;
+import javax.swing.UIManager;
 
 /**
  *
  * @author User
  */
 public class frameStokpile extends javax.swing.JFrame {
+String judulKolom[]={"ID StokPile", "Kode Lahan", "Stok"};
+int lebarKolom[]={250,500,280};
+String sql="SELECT * FROM stokpile";
 private crud cruddb;
 
     /**
      * Creates new form frameStokpile
      */
     public frameStokpile() {
+        try {
+            // Set Look and Feel ke Nimbus
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initComponents();
         this.setLocationRelativeTo(null); // meletakan posisi form berada ditengah windows
         cruddb = new crud();
+        cruddb.settingJudulTabel(tblStokpile, judulKolom);
+        cruddb.settingLebarKolom(tblStokpile, lebarKolom);
+        cruddb.tampilTabel(tblStokpile, sql, judulKolom);
     }
 
     /**
@@ -31,6 +44,7 @@ private crud cruddb;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
@@ -43,32 +57,67 @@ private crud cruddb;
         txtIDStokPile = new javax.swing.JTextField();
         txtKodeLahan = new javax.swing.JTextField();
         txtStok = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblStokpile = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Form Input Data Stokpile");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 9, 0, 0);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
+        btnSimpan.setBackground(new java.awt.Color(0, 153, 0));
+        btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 20, 0, 0);
+        getContentPane().add(btnSimpan, gridBagConstraints);
 
+        btnUbah.setBackground(new java.awt.Color(0, 102, 255));
+        btnUbah.setForeground(new java.awt.Color(255, 255, 255));
         btnUbah.setText("Ubah");
         btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUbahActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 12, 0, 0);
+        getContentPane().add(btnUbah, gridBagConstraints);
 
+        btnHapus.setBackground(new java.awt.Color(255, 0, 0));
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 12, 0, 0);
+        getContentPane().add(btnHapus, gridBagConstraints);
 
         btnBersih.setText("Bersih");
         btnBersih.addActionListener(new java.awt.event.ActionListener() {
@@ -76,75 +125,97 @@ private crud cruddb;
                 btnBersihActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 4, 0, 0);
+        getContentPane().add(btnBersih, gridBagConstraints);
 
         jLabel2.setText("ID Stokpile");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(44, 20, 0, 0);
+        getContentPane().add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Kode Lahan");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 20, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("Stok");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 20, 0, 0);
+        getContentPane().add(jLabel4, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 86;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(44, 43, 0, 0);
+        getContentPane().add(txtIDStokPile, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 86;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 43, 0, 0);
+        getContentPane().add(txtKodeLahan, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 86;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 43, 0, 0);
+        getContentPane().add(txtStok, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtKodeLahan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIDStokPile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStok, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(125, 125, 125))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSimpan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUbah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHapus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBersih)
-                        .addGap(62, 62, 62))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel3)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtIDStokPile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txtKodeLahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBersih))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSimpan)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(22, 22, 22))
-        );
+        tblStokpile.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblStokpile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblStokpileMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblStokpile);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 300;
+        gridBagConstraints.ipady = 255;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 60, 19, 19);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,6 +228,13 @@ private crud cruddb;
             txtKodeLahan.getText(),
             txtStok.getText()
         };
+        
+        if(txtIDStokPile.getText().equals("") || 
+        txtKodeLahan.getText().equals("") ||
+        txtIDStokPile.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+        return;
+    }
 
         if (cruddb.DuplicateKey("stokpile", "id_stokpile", values[0])) {
             JOptionPane.showMessageDialog(this, "Kode DVD sudah ada!");
@@ -164,7 +242,7 @@ private crud cruddb;
         }
 
         cruddb.simpanDinamis("stokpile", fields, values);
-//        bersihForm();
+        cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
@@ -174,9 +252,14 @@ private crud cruddb;
             txtKodeLahan.getText(),
             txtStok.getText()
         };
+        
+         if (txtIDStokPile.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
+        return;
+    }
 
         cruddb.UbahDinamis("stokpile", "id_stokpile", txtIDStokPile.getText(), fields, values);
-//        bersihForm();
+        cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -189,6 +272,7 @@ private crud cruddb;
         if (confirm == JOptionPane.YES_OPTION) {
             cruddb.HapusDinamis("stokpile", "id_stokpile", txtIDStokPile.getText());
             bersihForm();
+            cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
         }
     }//GEN-LAST:event_btnHapusActionPerformed
 
@@ -196,6 +280,24 @@ private crud cruddb;
         // TODO add your handling code here:
         bersihForm();
     }//GEN-LAST:event_btnBersihActionPerformed
+
+    private void tblStokpileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStokpileMouseClicked
+        // Mendapatkan indeks baris yang dipilih
+    int selectedRow = tblStokpile.getSelectedRow();
+    
+    // Memeriksa apakah ada baris yang dipilih
+    if (selectedRow != -1) {
+        // Mengambil data dari baris yang dipilih
+        String idStokPile = tblStokpile.getValueAt(selectedRow, 0).toString();
+        String kodeLahan = tblStokpile.getValueAt(selectedRow, 1).toString();
+        String stok = tblStokpile.getValueAt(selectedRow, 2).toString();
+
+        // Mengisi field input dengan data yang diambil
+        txtIDStokPile.setText(idStokPile);
+        txtKodeLahan.setText(kodeLahan);
+        txtStok.setText(stok);
+    }
+    }//GEN-LAST:event_tblStokpileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -241,6 +343,8 @@ private crud cruddb;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblStokpile;
     private javax.swing.JTextField txtIDStokPile;
     private javax.swing.JTextField txtKodeLahan;
     private javax.swing.JTextField txtStok;

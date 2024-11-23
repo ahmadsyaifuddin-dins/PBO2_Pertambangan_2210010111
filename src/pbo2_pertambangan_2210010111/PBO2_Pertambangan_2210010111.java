@@ -4,13 +4,12 @@
  */
 package pbo2_pertambangan_2210010111;
 import gui.frameUtama;
-
+ 
 /**
  *
  * @author User
  */
 public class PBO2_Pertambangan_2210010111 {
-
     /**
      * @param args the command line arguments
      */
