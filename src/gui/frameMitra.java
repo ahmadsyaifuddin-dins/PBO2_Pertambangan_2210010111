@@ -4,7 +4,12 @@
  */
 package gui;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import config.crud;
+import config.dynamic;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -16,7 +21,9 @@ public class frameMitra extends javax.swing.JFrame {
 String judulKolom[]={"ID Mitra", "Nama CV", "Alamat", "Telepon"};
 int lebarKolom[]={250,200,210,200};
 String sql="SELECT * FROM mitra";
+
 private crud cruddb;
+private dynamic formHandler;
 
     /**
      * Creates new form frameMitra
@@ -24,19 +31,37 @@ private crud cruddb;
     public frameMitra() {
         try {
             // Set Look and Feel ke Nimbus
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
         initComponents();
         this.setLocationRelativeTo(null); // meletakan posisi form berada ditengah windows
         cruddb = new crud();
+        
+        // Inisialisasi form handler
+        initializeFormFields();
+        
+        loaddata();
+}
+    
+     private void initializeFormFields() {
+        formHandler = new dynamic();
+        formHandler.addField("id_mitra", txtMitra);
+        formHandler.addField("nama_cv", txtNamaCV);
+        formHandler.addField("alamat", txtAlamat);
+        formHandler.addField("telp", txtTelp);
+    }
+     
+        void loaddata(){
         cruddb.settingJudulTabel(tblMitra, judulKolom);
         cruddb.settingLebarKolom(tblMitra, lebarKolom);
-        cruddb.tampilTabel(tblMitra, sql, judulKolom);
+        cruddb.tampilTabel(tblMitra, sql, judulKolom);}
         
         
-    }
+   
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +71,6 @@ private crud cruddb;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
@@ -63,19 +87,12 @@ private crud cruddb;
         txtNamaCV = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMitra = new javax.swing.JTable();
+        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Form Input Data Mitra");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 13, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
 
         btnSimpan.setBackground(new java.awt.Color(0, 153, 0));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
@@ -85,13 +102,6 @@ private crud cruddb;
                 btnSimpanActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(37, 27, 0, 0);
-        getContentPane().add(btnSimpan, gridBagConstraints);
 
         btnUbah.setBackground(new java.awt.Color(0, 102, 204));
         btnUbah.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,13 +111,6 @@ private crud cruddb;
                 btnUbahActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(37, 6, 0, 0);
-        getContentPane().add(btnUbah, gridBagConstraints);
 
         btnHapus.setBackground(new java.awt.Color(255, 0, 0));
         btnHapus.setForeground(new java.awt.Color(204, 255, 255));
@@ -117,12 +120,6 @@ private crud cruddb;
                 btnHapusActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(37, 6, 0, 0);
-        getContentPane().add(btnHapus, gridBagConstraints);
 
         btnBersih.setText("Bersih");
         btnBersih.addActionListener(new java.awt.event.ActionListener() {
@@ -130,84 +127,14 @@ private crud cruddb;
                 btnBersihActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(37, 6, 0, 0);
-        getContentPane().add(btnBersih, gridBagConstraints);
 
         jLabel2.setText("Alamat");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 57, 0, 0);
-        getContentPane().add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Nama CV");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 57, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("ID Mitra");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(46, 57, 0, 0);
-        getContentPane().add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Telepon");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 57, 0, 0);
-        getContentPane().add(jLabel5, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(43, 6, 0, 0);
-        getContentPane().add(txtMitra, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        getContentPane().add(txtAlamat, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        getContentPane().add(txtTelp, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        getContentPane().add(txtNamaCV, gridBagConstraints);
 
         tblMitra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,58 +154,120 @@ private crud cruddb;
         });
         jScrollPane1.setViewportView(tblMitra);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 11;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 345;
-        gridBagConstraints.ipady = 255;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 0);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+        btnCetak.setBackground(new java.awt.Color(255, 255, 51));
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNamaCV, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMitra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelp, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(btnSimpan)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnUbah)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnHapus))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(btnBersih)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCetak)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel3)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel2)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel5))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(txtMitra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNamaCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSimpan)
+                            .addComponent(btnUbah)
+                            .addComponent(btnHapus))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBersih)
+                            .addComponent(btnCetak))))
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        String[] fields = {"id_mitra", "nama_cv", "alamat", "telp"};
-        String[] values = {
-            txtMitra.getText(),
-            txtNamaCV.getText(),
-            txtAlamat.getText(),
-            txtTelp.getText()
-        };
+        // Mendapatkan fields dan values secara dinamis
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
         
-        if(txtMitra.getText().equals("") || 
-        txtNamaCV.getText().equals("") ||
-        txtAlamat.getText().equals("") ||
-        txtTelp.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
-        return;
-    }
-
+        // Cek field kosong
+        if (formHandler.hasEmptyFields()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+            return;
+        }
+        
+        // Cek duplicate key
         if (cruddb.DuplicateKey("mitra", "id_mitra", values[0])) {
             JOptionPane.showMessageDialog(this, "ID Mitra sudah ada!");
             return;
         }
-
+        
         cruddb.simpanDinamis("mitra", fields, values);
-        cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
+        loaddata();
 
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
         // TODO add your handling code here:
-        String[] fields = {"nama_cv", "alamat", "telp"};
-        String[] values = {
-            txtNamaCV.getText(),
-            txtAlamat.getText(),
-            txtTelp.getText()
-        };
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
         
          if (txtMitra.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
@@ -286,7 +275,9 @@ private crud cruddb;
     }
 
         cruddb.UbahDinamis("mitra", "id_mitra", txtMitra.getText(), fields, values);
-        cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
+//        cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
+        
+        loaddata();
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -299,7 +290,8 @@ private crud cruddb;
         if (confirm == JOptionPane.YES_OPTION) {
             cruddb.HapusDinamis("mitra", "id_mitra", txtMitra.getText());
             bersihForm();
-            cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
+            loaddata();
+//            cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
         }
 
     }//GEN-LAST:event_btnHapusActionPerformed
@@ -321,6 +313,18 @@ private crud cruddb;
         String alamat = tblMitra.getValueAt(selectedRow, 2).toString();
         String telp = tblMitra.getValueAt(selectedRow, 3).toString();
 
+//        Contoh ampun bapak
+//        int baris=tblMitra.getSelectedRow();
+//        txtMitra.setText(tblMitra.getValueAt(baris, 0).toString());
+//        txtAlamat.setText(tblAlamat.getValueAt(baris, 0).toString());
+//        txtNamaCV.setText(tblMitra.getValueAt(baris, 0).toString());
+//        txtTelp.setText(tblMitra.getValueAt(baris, 0).toString());
+
+//        String idMitra = tblMitra.getValueAt(baris, 0).toString();
+//        String namaCV = tblMitra.getValueAt(baris, 1).toString();
+//        String alamat = tblMitra.getValueAt(baris, 2).toString();
+//        String telp = tblMitra.getValueAt(baris, 3).toString();
+
         // Mengisi field input dengan data yang diambil
         txtMitra.setText(idMitra);
         txtNamaCV.setText(namaCV);
@@ -328,6 +332,15 @@ private crud cruddb;
         txtTelp.setText(telp);
     }
     }//GEN-LAST:event_tblMitraMouseClicked
+
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+    try {
+        // TODO add your handling code here:
+        cruddb.tampilLaporan("src/laporan/reportMitra.jrxml", "select * from mitra");
+    } catch (SQLException ex) {
+        Logger.getLogger(frameMitra.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,6 +379,7 @@ private crud cruddb;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBersih;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUbah;
@@ -381,12 +395,26 @@ private crud cruddb;
     private javax.swing.JTextField txtNamaCV;
     private javax.swing.JTextField txtTelp;
     // End of variables declaration//GEN-END:variables
+
 // Method helper untuk membersihkan form
+//private void bersihForm() {
+//    txtMitra.setText("");
+//    txtAlamat.setText("");
+//    txtNamaCV.setText("");
+//    txtTelp.setText("");
+//    txtMitra.requestFocus();
+//}
+    
 private void bersihForm() {
-    txtMitra.setText("");
-    txtAlamat.setText("");
-    txtNamaCV.setText("");
-    txtTelp.setText("");
+    // Iterasi melalui semua komponen di content pane
+    for (java.awt.Component component : this.getContentPane().getComponents()) {
+        // Memeriksa apakah komponen tersebut adalah JTextField
+        if (component instanceof javax.swing.JTextField) {
+            // Membersihkan setiap JTextField
+            ((javax.swing.JTextField) component).setText("");
+        }
+    }
+    // Fokuskan kembali ke field pertama (txtIDAuthor) setelah pembersihan
     txtMitra.requestFocus();
-}
+}    
 }
