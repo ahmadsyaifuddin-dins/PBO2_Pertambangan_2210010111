@@ -24,6 +24,7 @@ String sql="SELECT * FROM mitra";
 
 private crud cruddb;
 private dynamic formHandler;
+private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan form
 
     /**
      * Creates new form frameMitra
@@ -273,15 +274,27 @@ private dynamic formHandler;
         JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
         return;
     }
-
+         // Konfirmasi perubahan data
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin mengubah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update data berdasarkan ID
         cruddb.UbahDinamis("mitra", "id_mitra", txtMitra.getText(), fields, values);
-//        cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
-        
-        loaddata();
+            loaddata();
+        }
+
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
+        
+        String id = txtMitra.getText();
+
+         // Validasi jika ID kosong
+        if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus!");
+        return;
+        }
+        
         int confirm = JOptionPane.showConfirmDialog(this,
             "Apakah anda yakin ingin menghapus data ini?",
             "Konfirmasi Hapus",
@@ -291,14 +304,25 @@ private dynamic formHandler;
             cruddb.HapusDinamis("mitra", "id_mitra", txtMitra.getText());
             bersihForm();
             loaddata();
-//            cruddb.tampilTabel(tblMitra, sql, judulKolom); // Refresh table
         }
 
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnBersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBersihActionPerformed
         // TODO add your handling code here:
+        // Panggil fungsi bersihForm untuk membersihkan form
         bersihForm();
+    
+    // Cek jika semua field sudah kosong
+    if (isFormEmpty()) {
+        // Tampilkan pesan hanya jika form benar-benar kosong dan belum menampilkan pesan sebelumnya
+        if (isFormClean) {
+            JOptionPane.showMessageDialog(this, "Field sudah bersih semua cuy :)");
+            isFormClean = false;  // Tandai form sebagai sudah bersih;
+        }
+    } else {
+        isFormClean = true;  // Tandai form sebagai tidak kosong (misalnya pengguna memasukkan teks atau memilih item)
+    }
     }//GEN-LAST:event_btnBersihActionPerformed
 
     private void tblMitraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMitraMouseClicked
@@ -416,5 +440,32 @@ private void bersihForm() {
     }
     // Fokuskan kembali ke field pertama (txtIDAuthor) setelah pembersihan
     txtMitra.requestFocus();
-}    
+}
+
+// Method Dinamis untuk memeriksa apakah form kosong
+    private boolean isFormEmpty() {
+     // Iterasi melalui semua komponen di content pane
+    for (java.awt.Component component : this.getContentPane().getComponents()) {
+        // Memeriksa apakah komponen tersebut adalah JTextField
+        if (component instanceof javax.swing.JTextField) {
+            // Membersihkan setiap JTextField
+            ((javax.swing.JTextField) component).setText("");
+        }
+        // Memeriksa apakah komponen adalah JComboBox
+        else if (component instanceof javax.swing.JComboBox) {
+            if (((javax.swing.JComboBox) component).getSelectedIndex() != 0) {
+                return false; // Jika JComboBox tidak dalam kondisi default, return false
+            }
+        }
+        // Memeriksa apakah komponen adalah JTextArea
+        else if (component instanceof javax.swing.JTextArea) {
+            if (!((javax.swing.JTextArea) component).getText().isEmpty()) {
+                return false; // Jika JTextArea tidak kosong, return false
+            }
+        }
+    }
+    // Semua field kosong
+    return true;
+}
+
 }
