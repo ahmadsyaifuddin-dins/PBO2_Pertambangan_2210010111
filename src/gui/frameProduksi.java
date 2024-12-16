@@ -6,6 +6,7 @@ package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import config.crud;
+import config.dynamic;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -21,8 +22,10 @@ public class frameProduksi extends javax.swing.JFrame {
 String judulKolom[]={"ID Produksi", "Tanggal", "Shift", "ID Truk", "ID Stokpile", "Muatan", "Kosong", "Volume"};
 int lebarKolom[]={50,200,100,200,200,200,200,200};
 String sql="SELECT * FROM produksi";
-private crud cruddb;
 
+private crud cruddb;
+private dynamic formHandler;
+private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan form
     /**
      * Creates new form frameProduksi
      */
@@ -36,10 +39,30 @@ private crud cruddb;
         initComponents();
         this.setLocationRelativeTo(null); // meletakan posisi form berada ditengah windows
         cruddb = new crud();
+        
+        
+        // Inisialisasi form handler
+        initializeFormFields();
+        
+        loaddata();
+}       
+        private void initializeFormFields() {
+        formHandler = new dynamic();
+        formHandler.addField("id_produksi", txtIDProduksi);
+        formHandler.addField("tgl",jCalendarComboBox1);
+        formHandler.addField("shift", comboBoxShift);
+        formHandler.addField("id_truk", txtIDTruk);
+        formHandler.addField("id_stokpile", txtIDStokPile);
+        formHandler.addField("muatan", txtMuatan);
+        formHandler.addField("kosong", txtKosong);
+        formHandler.addField("volume", txtVol);
+
+    }
+   
+        void loaddata(){
         cruddb.settingJudulTabel(tableProduksi, judulKolom);
         cruddb.settingLebarKolom(tableProduksi, lebarKolom);
-        cruddb.tampilTabel(tableProduksi, sql, judulKolom);
-    }
+        cruddb.tampilTabel(tableProduksi, sql, judulKolom);}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,7 +89,6 @@ private crud cruddb;
         jLabel9 = new javax.swing.JLabel();
         txtIDProduksi = new javax.swing.JTextField();
         txtIDStokPile = new javax.swing.JTextField();
-        txtShift = new javax.swing.JTextField();
         txtIDTruk = new javax.swing.JTextField();
         txtMuatan = new javax.swing.JTextField();
         txtKosong = new javax.swing.JTextField();
@@ -76,6 +98,7 @@ private crud cruddb;
         tableProduksi = new javax.swing.JTable();
         btnCetak = new javax.swing.JButton();
         jCalendarComboBox1 = new de.wannawork.jcalendar.JCalendarComboBox();
+        comboBoxShift = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -83,9 +106,9 @@ private crud cruddb;
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Form Input Data Produksi");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 78;
+        gridBagConstraints.gridwidth = 50;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(3, 63, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
@@ -99,9 +122,9 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.gridwidth = 11;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(31, 22, 0, 0);
@@ -119,9 +142,9 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridx = 14;
         gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 20;
+        gridBagConstraints.gridwidth = 13;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(31, 2, 0, 0);
@@ -136,9 +159,9 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 79;
+        gridBagConstraints.gridwidth = 51;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(31, 6, 0, 0);
@@ -151,18 +174,19 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridwidth = 12;
+        gridBagConstraints.gridheight = 19;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 56, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 56, 6, 0);
         getContentPane().add(btnBersih, gridBagConstraints);
 
         jLabel2.setText("ID Produksi (harus angka)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 18;
+        gridBagConstraints.gridwidth = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 18, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
@@ -171,7 +195,7 @@ private crud cruddb;
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 18, 0, 0);
         getContentPane().add(jLabel3, gridBagConstraints);
@@ -188,7 +212,7 @@ private crud cruddb;
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 18, 0, 0);
         getContentPane().add(jLabel5, gridBagConstraints);
@@ -206,7 +230,7 @@ private crud cruddb;
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 19, 0, 0);
         getContentPane().add(jLabel7, gridBagConstraints);
@@ -215,7 +239,7 @@ private crud cruddb;
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 19, 0, 0);
         getContentPane().add(jLabel9, gridBagConstraints);
@@ -226,62 +250,53 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
         getContentPane().add(txtIDProduksi, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 0, 0);
         getContentPane().add(txtIDStokPile, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 80;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 86;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        getContentPane().add(txtShift, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
         getContentPane().add(txtIDTruk, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 6, 0, 0);
         getContentPane().add(txtMuatan, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
         getContentPane().add(txtKosong, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 80;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 86;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -292,7 +307,7 @@ private crud cruddb;
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.gridwidth = 7;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 18, 0, 0);
@@ -317,16 +332,16 @@ private crud cruddb;
         jScrollPane1.setViewportView(tableProduksi);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 142;
+        gridBagConstraints.gridx = 91;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 19;
+        gridBagConstraints.gridheight = 18;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 1329;
-        gridBagConstraints.ipady = 408;
+        gridBagConstraints.ipadx = 448;
+        gridBagConstraints.ipady = 388;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 12, 23, 6);
+        gridBagConstraints.insets = new java.awt.Insets(3, 12, 0, 6);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         btnCetak.setBackground(new java.awt.Color(255, 255, 51));
@@ -337,53 +352,48 @@ private crud cruddb;
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 41;
+        gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 21;
+        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.gridheight = 19;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 18, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 6, 0);
         getContentPane().add(btnCetak, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 61;
+        gridBagConstraints.gridx = 39;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 81;
+        gridBagConstraints.gridwidth = 52;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 28;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 0, 0);
         getContentPane().add(jCalendarComboBox1, gridBagConstraints);
 
+        comboBoxShift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pagi", "Siang", "Sore", "Malam" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 39;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 52;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 78;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
+        getContentPane().add(comboBoxShift, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String tanggal = sdf.format(jCalendarComboBox1.getDate());
-            
-        String[] fields = {"id_produksi", "tgl", "shift", "id_truk", "id_stokpile","muatan","kosong","volume"};
-        String[] values = {
-            txtIDProduksi.getText(),
-            tanggal,
-            txtShift.getText(),
-            txtIDTruk.getText(),
-            txtIDStokPile.getText(),
-            txtMuatan.getText(),
-            txtKosong.getText(),
-            txtVol.getText()
-
-        };
         
-        if(txtIDProduksi.getText().equals("") || 
-        txtShift.getText().equals("") ||
-        txtIDTruk.getText().equals("") ||
-        txtIDStokPile.getText().equals("") ||
-        txtMuatan.getText().equals("") ||
-        txtKosong.getText().equals("") ||
-        txtVol.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
-        return;
-    }
+        // Mendapatkan fields dan values secara dinamis
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
+        
+       // Cek field kosong
+        if (formHandler.hasEmptyFields()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+            return;
+        }
 
         if (cruddb.DuplicateKey("produksi", "id_produksi", values[0])) {
             JOptionPane.showMessageDialog(this, "Kode Produksi sudah ada!");
@@ -391,36 +401,40 @@ private crud cruddb;
         }
 
         cruddb.simpanDinamis("produksi", fields, values);
-        cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
+        loaddata(); // Merefresh isi table 
+//        cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
-        // TODO add your handling code here:
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String tanggal = sdf.format(jCalendarComboBox1.getDate());
-            
-        String[] fields = {"tgl", "shift", "id_truk", "id_stokpile","muatan","kosong","volume"};
-        String[] values = {
-            tanggal,
-            txtShift.getText(),
-            txtIDTruk.getText(),
-            txtIDStokPile.getText(),
-            txtMuatan.getText(),
-            txtKosong.getText(),
-            txtVol.getText()
-        };
+        
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
         
          if (txtIDProduksi.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
         return;
     }
-
+    
+          // Konfirmasi perubahan data
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin mengubah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update data berdasarkan ID
         cruddb.UbahDinamis("produksi", "id_produksi", txtIDProduksi.getText(), fields, values);
-        cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
+        loaddata();
+//            cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
+        }
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+        
+        String id = txtIDProduksi.getText();
+
+         // Validasi jika ID kosong
+        if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus!");
+        return;
+        }
+        
         int confirm = JOptionPane.showConfirmDialog(this,
             "Apakah anda yakin ingin menghapus data ini?",
             "Konfirmasi Hapus",
@@ -429,13 +443,25 @@ private crud cruddb;
         if (confirm == JOptionPane.YES_OPTION) {
             cruddb.HapusDinamis("produksi", "id_produksi", txtIDProduksi.getText());
             bersihForm();
-            cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
+            loaddata();
+//            cruddb.tampilTabel(tableProduksi, sql, judulKolom); // Refresh table
         }
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnBersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBersihActionPerformed
-        // TODO add your handling code here:
+        
         bersihForm();
+        
+        // Cek jika semua field sudah kosong
+    if (isFormEmpty()) {
+        // Tampilkan pesan hanya jika form benar-benar kosong dan belum menampilkan pesan sebelumnya
+        if (isFormClean) {
+            JOptionPane.showMessageDialog(this, "Field sudah bersih semua cuy :)");
+            isFormClean = false;  // Tandai form sebagai sudah bersih;
+        }
+    } else {
+        isFormClean = true;  // Tandai form sebagai tidak kosong (misalnya pengguna memasukkan teks atau memilih item)
+    }
     }//GEN-LAST:event_btnBersihActionPerformed
 
     private void txtIDProduksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDProduksiActionPerformed
@@ -459,7 +485,6 @@ private crud cruddb;
     if (selectedRow != -1) {
         // Mengambil data dari baris yang dipilih
         String idProduksi = tableProduksi.getValueAt(selectedRow, 0).toString();
-        String tanggal = tableProduksi.getValueAt(selectedRow, 1).toString();
         String shift = tableProduksi.getValueAt(selectedRow, 2).toString();
         String idTruk = tableProduksi.getValueAt(selectedRow, 3).toString();
         String idStokPile = tableProduksi.getValueAt(selectedRow, 4).toString();
@@ -469,7 +494,7 @@ private crud cruddb;
 
         // Mengisi field input dengan data yang diambil
         txtIDProduksi.setText(idProduksi);
-        txtShift.setText(shift);
+        comboBoxShift.setSelectedItem(shift);
         txtIDTruk.setText(idTruk);
         txtIDStokPile.setText(idStokPile);
         txtMuatan.setText(muatan);
@@ -529,6 +554,7 @@ private crud cruddb;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUbah;
+    private javax.swing.JComboBox<String> comboBoxShift;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -547,7 +573,6 @@ private crud cruddb;
     private javax.swing.JTextField txtIDTruk;
     private javax.swing.JTextField txtKosong;
     private javax.swing.JTextField txtMuatan;
-    private javax.swing.JTextField txtShift;
     private javax.swing.JTextField txtVol;
     // End of variables declaration//GEN-END:variables
 
@@ -575,5 +600,31 @@ private void bersihForm() {
     }
     // Fokuskan kembali ke field pertama (txtIDAuthor) setelah pembersihan
     txtIDProduksi.requestFocus();
+}
+
+// Method Dinamis untuk memeriksa apakah form kosong
+    private boolean isFormEmpty() {
+     // Iterasi melalui semua komponen di content pane
+    for (java.awt.Component component : this.getContentPane().getComponents()) {
+        // Memeriksa apakah komponen tersebut adalah JTextField
+        if (component instanceof javax.swing.JTextField) {
+            // Membersihkan setiap JTextField
+            ((javax.swing.JTextField) component).setText("");
+        }
+        // Memeriksa apakah komponen adalah JComboBox
+        else if (component instanceof javax.swing.JComboBox) {
+            if (((javax.swing.JComboBox) component).getSelectedIndex() != 0) {
+                return false; // Jika JComboBox tidak dalam kondisi default, return false
+            }
+        }
+        // Memeriksa apakah komponen adalah JTextArea
+        else if (component instanceof javax.swing.JTextArea) {
+            if (!((javax.swing.JTextArea) component).getText().isEmpty()) {
+                return false; // Jika JTextArea tidak kosong, return false
+            }
+        }
+    }
+    // Semua field kosong
+    return true;
 }
 }

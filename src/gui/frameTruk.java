@@ -5,6 +5,7 @@
 package gui;
 import com.formdev.flatlaf.FlatLightLaf;
 import config.crud;
+import config.dynamic;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +19,10 @@ public class frameTruk extends javax.swing.JFrame {
 String judulKolom[]={"ID Truk", "ID Mitra", "Kode Truk", "Merk", "Daya Angkut", "No. Polisi"};
 int lebarKolom[]={150,300,180,100,100,200};
 String sql="SELECT * FROM truk";
-private crud cruddb;
 
+private crud cruddb;
+private dynamic formHandler;
+private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan form
     /**
      * Creates new form frameTruk
      */
@@ -32,12 +35,30 @@ private crud cruddb;
         }
         initComponents();
         this.setLocationRelativeTo(null); // meletakan posisi form berada ditengah windows
+        
         cruddb = new crud();
+        
+        // Inisialisasi form handler
+        initializeFormFields();
+        
+        loaddata();
+}
+
+    private void initializeFormFields() {
+        formHandler = new dynamic();
+        formHandler.addField("id_truk", txtIDTruk);
+        formHandler.addField("id_mitra", txtMitra);
+        formHandler.addField("kode_truk", txtKodeTruk);
+        formHandler.addField("merk", txtMerk);
+        formHandler.addField("daya_angkut", txtDayaAngkut);
+        formHandler.addField("nopolisi", txtNoPolis);
+    }
+     
+        void loaddata(){
         cruddb.settingJudulTabel(tblTruk, judulKolom);
         cruddb.settingLebarKolom(tblTruk, lebarKolom);
-        cruddb.tampilTabel(tblTruk, sql, judulKolom);
-    }
-
+        cruddb.tampilTabel(tblTruk, sql, judulKolom);}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -259,26 +280,16 @@ private crud cruddb;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-        String[] fields = {"id_truk", "id_mitra", "kode_truk", "merk", "daya_angkut", "nopolisi"};
-        String[] values = {
-            txtIDTruk.getText(),
-            txtMitra.getText(),
-            txtKodeTruk.getText(),
-            txtMerk.getText(),
-            txtDayaAngkut.getText(),
-            txtNoPolis.getText()
-        };
         
-        if(txtIDTruk.getText().equals("") || 
-        txtMitra.getText().equals("") ||
-        txtKodeTruk.getText().equals("") ||
-        txtMerk.getText().equals("") ||
-        txtDayaAngkut.getText().equals("") ||
-        txtNoPolis.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
-        return;
-    }
+        // Mendapatkan fields dan values secara dinamis
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
+        
+        // Cek field kosong
+        if (formHandler.hasEmptyFields()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+            return;
+        }
 
         if (cruddb.DuplicateKey("truk", "id_truk", values[0])) {
             JOptionPane.showMessageDialog(this, "ID Truk sudah ada!");
@@ -286,31 +297,37 @@ private crud cruddb;
         }
 
         cruddb.simpanDinamis("truk", fields, values);
-        cruddb.tampilTabel(tblTruk, sql, judulKolom); // Refresh table
+        loaddata();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
-        // TODO add your handling code here:
-        String[] fields = {"id_mitra", "kode_truk", "merk", "daya_angkut", "nopolisi"};
-        String[] values = {
-            txtMitra.getText(),
-            txtKodeTruk.getText(),
-            txtMerk.getText(),
-            txtDayaAngkut.getText(),
-            txtNoPolis.getText()
-        };
+        
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
         
          if (txtIDTruk.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
         return;
-    }
-
+    }    
+          // Konfirmasi perubahan data
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin mengubah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update data berdasarkan ID
         cruddb.UbahDinamis("truk", "id_truk", txtIDTruk.getText(), fields, values);
-        cruddb.tampilTabel(tblTruk, sql, judulKolom); // Refresh table
+            loaddata();
+        }
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+
+        String id = txtIDTruk.getText();
+
+         // Validasi jika ID kosong
+        if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus!");
+        return;
+        }
+        
         int confirm = JOptionPane.showConfirmDialog(this,
             "Apakah anda yakin ingin menghapus data ini?",
             "Konfirmasi Hapus",

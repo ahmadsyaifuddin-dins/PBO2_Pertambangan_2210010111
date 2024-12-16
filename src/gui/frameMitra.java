@@ -243,7 +243,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        
         // Mendapatkan fields dan values secara dinamis
         String[] fields = formHandler.getFieldNames();
         String[] values = formHandler.getFieldValues();
@@ -266,7 +266,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
-        // TODO add your handling code here:
+        
         String[] fields = formHandler.getFieldNames();
         String[] values = formHandler.getFieldValues();
         
@@ -285,7 +285,6 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
         
         String id = txtMitra.getText();
 

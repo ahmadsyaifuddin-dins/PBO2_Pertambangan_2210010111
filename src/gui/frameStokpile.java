@@ -6,6 +6,7 @@ package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import config.crud;
+import config.dynamic;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,8 +21,10 @@ public class frameStokpile extends javax.swing.JFrame {
 String judulKolom[]={"ID StokPile", "Kode Lahan", "Stok"};
 int lebarKolom[]={250,500,280};
 String sql="SELECT * FROM stokpile";
-private crud cruddb;
 
+private crud cruddb;
+private dynamic formHandler;
+private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan form
     /**
      * Creates new form frameStokpile
      */
@@ -34,11 +37,27 @@ private crud cruddb;
         }
         initComponents();
         this.setLocationRelativeTo(null); // meletakan posisi form berada ditengah windows
+        
         cruddb = new crud();
+        
+        // Inisialisasi form handler
+        initializeFormFields();
+        
+        loaddata();
+}        
+
+    private void initializeFormFields() {
+        formHandler = new dynamic();
+        formHandler.addField("id_stokpile", txtIDStokPile);
+        formHandler.addField("kode_lahan", txtKodeLahan);
+        formHandler.addField("stok", txtStok);
+    }
+     
+        void loaddata(){
         cruddb.settingJudulTabel(tblStokpile, judulKolom);
         cruddb.settingLebarKolom(tblStokpile, lebarKolom);
-        cruddb.tampilTabel(tblStokpile, sql, judulKolom);
-    }
+        cruddb.tampilTabel(tblStokpile, sql, judulKolom);}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,49 +231,55 @@ private crud cruddb;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
-        String[] fields = {"id_stokpile", "kode_lahan", "stok"};
-        String[] values = {
-            txtIDStokPile.getText(),
-            txtKodeLahan.getText(),
-            txtStok.getText()
-        };
         
-        if(txtIDStokPile.getText().equals("") || 
-        txtKodeLahan.getText().equals("") ||
-        txtIDStokPile.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
-        return;
-    }
-
+        // Mendapatkan fields dan values secara dinamis
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
+        
+        // Cek field kosong
+        if (formHandler.hasEmptyFields()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
+            return;
+        }
+        
+        // Cek duplicate key
         if (cruddb.DuplicateKey("stokpile", "id_stokpile", values[0])) {
-            JOptionPane.showMessageDialog(this, "Kode DVD sudah ada!");
+            JOptionPane.showMessageDialog(this, "ID Stokpile sudah ada!");
             return;
         }
 
         cruddb.simpanDinamis("stokpile", fields, values);
-        cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
+        loaddata();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
-        // TODO add your handling code here:
-        String[] fields = {"kode_lahan", "stok"};
-        String[] values = {
-            txtKodeLahan.getText(),
-            txtStok.getText()
-        };
+        
+        String[] fields = formHandler.getFieldNames();
+        String[] values = formHandler.getFieldValues();
         
          if (txtIDStokPile.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Tidak ada data yang diubah!");
         return;
     }
-
+        // Konfirmasi perubahan data
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin mengubah data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update data berdasarkan ID
         cruddb.UbahDinamis("stokpile", "id_stokpile", txtIDStokPile.getText(), fields, values);
-        cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
+            loaddata();
+        }
     }//GEN-LAST:event_btnUbahActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+
+        String id = txtIDStokPile.getText();
+
+         // Validasi jika ID kosong
+        if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus!");
+        return;
+        }
+        
         int confirm = JOptionPane.showConfirmDialog(this,
             "Apakah anda yakin ingin menghapus data ini?",
             "Konfirmasi Hapus",
@@ -263,7 +288,7 @@ private crud cruddb;
         if (confirm == JOptionPane.YES_OPTION) {
             cruddb.HapusDinamis("stokpile", "id_stokpile", txtIDStokPile.getText());
             bersihForm();
-            cruddb.tampilTabel(tblStokpile, sql, judulKolom); // Refresh table
+            loaddata();
         }
     }//GEN-LAST:event_btnHapusActionPerformed
 
