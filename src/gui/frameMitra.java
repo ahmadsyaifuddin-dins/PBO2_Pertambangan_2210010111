@@ -17,18 +17,34 @@ import javax.swing.UIManager;
  *
  * @author User
  */
-public class frameMitra extends javax.swing.JFrame {
+public final class frameMitra extends javax.swing.JFrame {
+    
+private final crud cruddb;
 String judulKolom[]={"ID Mitra", "Nama CV", "Alamat", "Telepon"};
 int lebarKolom[]={250,200,210,200};
 String sql="SELECT * FROM mitra";
 
-private crud cruddb;
 private dynamic formHandler;
 private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan form
 
     /**
      * Creates new form frameMitra
      */
+
+    private void loaddata(){
+        cruddb.settingJudulTabel(tblMitra, judulKolom);
+        cruddb.settingLebarKolom(tblMitra, lebarKolom);
+        cruddb.tampilTabel(tblMitra, sql, judulKolom);
+    }
+    
+     private void initializeFormFields() {
+        formHandler = new dynamic();
+        formHandler.addField("id_mitra", txtMitra);
+        formHandler.addField("nama_cv", txtNamaCV);
+        formHandler.addField("alamat", txtAlamat);
+        formHandler.addField("telp", txtTelp);
+    }
+     
     public frameMitra() {
         try {
             // Set Look and Feel ke Nimbus
@@ -45,19 +61,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         
         loaddata();
 }
-    
-     private void initializeFormFields() {
-        formHandler = new dynamic();
-        formHandler.addField("id_mitra", txtMitra);
-        formHandler.addField("nama_cv", txtNamaCV);
-        formHandler.addField("alamat", txtAlamat);
-        formHandler.addField("telp", txtTelp);
-    }
      
-        void loaddata(){
-        cruddb.settingJudulTabel(tblMitra, judulKolom);
-        cruddb.settingLebarKolom(tblMitra, lebarKolom);
-        cruddb.tampilTabel(tblMitra, sql, judulKolom);}
         
         
    
@@ -98,6 +102,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnSimpan.setBackground(new java.awt.Color(0, 153, 0));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnSimpan.setText("Simpan");
+        btnSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
@@ -107,6 +112,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnUbah.setBackground(new java.awt.Color(0, 102, 204));
         btnUbah.setForeground(new java.awt.Color(255, 255, 255));
         btnUbah.setText("Ubah");
+        btnUbah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUbahActionPerformed(evt);
@@ -116,6 +122,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnHapus.setBackground(new java.awt.Color(255, 0, 0));
         btnHapus.setForeground(new java.awt.Color(204, 255, 255));
         btnHapus.setText("Hapus");
+        btnHapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
@@ -123,6 +130,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         });
 
         btnBersih.setText("Bersih");
+        btnBersih.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBersih.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBersihActionPerformed(evt);
@@ -157,6 +165,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
 
         btnCetak.setBackground(new java.awt.Color(255, 255, 51));
         btnCetak.setText("Cetak");
+        btnCetak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCetakActionPerformed(evt);

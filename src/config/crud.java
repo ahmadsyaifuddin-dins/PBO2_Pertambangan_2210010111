@@ -34,6 +34,7 @@ import java.sql.SQLException;
 public class crud {
 
     private static final String jdbcURL = "jdbc:mysql://localhost:3306/2210010111_pertambangan";
+
     private static final String username = "root";
     private static final String password = "";
 

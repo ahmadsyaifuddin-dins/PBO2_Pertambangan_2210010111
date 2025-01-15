@@ -97,6 +97,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnSimpan.setBackground(new java.awt.Color(0, 153, 0));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnSimpan.setText("Simpan");
+        btnSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
@@ -106,6 +107,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnUbah.setBackground(new java.awt.Color(0, 102, 255));
         btnUbah.setForeground(new java.awt.Color(255, 255, 255));
         btnUbah.setText("Ubah");
+        btnUbah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUbahActionPerformed(evt);
@@ -115,6 +117,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         btnHapus.setBackground(new java.awt.Color(255, 0, 0));
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
+        btnHapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
@@ -122,6 +125,7 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         });
 
         btnBersih.setText("Bersih");
+        btnBersih.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBersih.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBersihActionPerformed(evt);
@@ -151,15 +155,20 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTruk.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblTruk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTrukMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblTrukMouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(tblTruk);
 
         btnCetak.setBackground(new java.awt.Color(255, 255, 51));
         btnCetak.setText("Cetak");
+        btnCetak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCetakActionPerformed(evt);
@@ -376,6 +385,10 @@ private boolean isFormClean = true;  // Variabel untuk melacak status kebersihan
         Logger.getLogger(frameTruk.class.getName()).log(Level.SEVERE, null, ex);
     }
     }//GEN-LAST:event_btnCetakActionPerformed
+
+    private void tblTrukMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTrukMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblTrukMouseEntered
 
     /**
      * @param args the command line arguments
