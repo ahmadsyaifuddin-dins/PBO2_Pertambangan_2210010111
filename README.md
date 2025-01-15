@@ -49,7 +49,7 @@ Provide details on how to use the application here. Include any necessary comman
 
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/ahmad-syaifuddin/PBO2_Pertambangan_2210010111/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111/blob/main/LICENSE) file for details.
 
 ## Repository Information
 - **Created at:** November 14, 2024
