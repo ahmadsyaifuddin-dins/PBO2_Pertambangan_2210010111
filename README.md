@@ -11,7 +11,7 @@ This repository contains a Java project for mining-related functionalities. It i
 To run this project, you need to have Java installed on your machine. Follow these steps to set up the project:
 1. Clone the repository:
     ```bash
-    git clone https://github.com/ahmad-syaifuddin/PBO2_Pertambangan_2210010111.git
+    git clone https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111.git
     ```
 2. Navigate to the project directory:
     ```bash
