@@ -1,4 +1,4 @@
-## Ahmad Syaifuddin (2210010111) - Project Pertambangan untuk UAS PBO (Sistem Manajemen Pertambangan)
+## Ahmad Syaifuddin (2210010111) - Project Pertambangan untuk UAS PBO 2 (Sistem Manajemen Pertambangan)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/ahmad-syaifuddin/PBO2_Pertambangan_2210010111)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ahmad-syaifuddin/PBO2_Pertambangan_2210010111)
