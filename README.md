@@ -53,6 +53,6 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 
 ## Repository Information
 - **Created at:** November 14, 2024
-- **Last updated:** January 15, 2025
-- **Language:** Java
+- **Last updated:** Januari 15, 2025
+- **Language:** Java ☕
 
