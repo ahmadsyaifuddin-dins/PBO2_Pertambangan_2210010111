@@ -1,8 +1,8 @@
 ## Ahmad Syaifuddin (2210010111) - Project Pertambangan untuk UAS PBO 2 (Sistem Manajemen Pertambangan)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/ahmad-syaifuddin/PBO2_Pertambangan_2210010111)
-![GitHub last commit](https://img.shields.io/github/last-commit/ahmad-syaifuddin/PBO2_Pertambangan_2210010111)
-![GitHub issues](https://img.shields.io/github/issues/ahmad-syaifuddin/PBO2_Pertambangan_2210010111)
+![GitHub repo size](https://img.shields.io/github/repo-size/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
+![GitHub last commit](https://img.shields.io/github/last-commit/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
+![GitHub issues](https://img.shields.io/github/issues/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
 
 ## Introduction
 This repository contains a Java project for mining-related functionalities. It is part of the PBO2 (Object-Oriented Programming) course project.
