@@ -29,6 +29,25 @@ To run this project, you need to have Java installed on your machine. Follow the
 ## Usage
 Provide details on how to use the application here. Include any necessary commands or configurations.
 
+
+## Demo/Preview
+### Halaman Utama
+![halaman utama](https://github.com/user-attachments/assets/208c9bf6-8814-4fda-bd7e-c38e6a1e8443)
+
+### Form Mitra
+![form mitra](https://github.com/user-attachments/assets/d18d2395-ea3f-42ae-8ce6-fbcb6ce28cbf)
+
+### Form Produksi
+![form produksi](https://github.com/user-attachments/assets/ddfd52a9-3f91-4497-a7bc-1a870bb54eb5)
+
+### Form Truk
+![form truk](https://github.com/user-attachments/assets/5fde5d13-7c82-4c8f-ad54-b3c531b19d3a)
+
+### Form Stokpile
+![form stokpile](https://github.com/user-attachments/assets/5811a797-c15d-4c11-bd36-35d1928caa80)
+
+
+
 ## License
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/ahmad-syaifuddin/PBO2_Pertambangan_2210010111/blob/main/LICENSE) file for details.
 
