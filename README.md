@@ -1,34 +1,98 @@
 ## Ahmad Syaifuddin (2210010111) - Project Pertambangan untuk UAS PBO 2 (Sistem Manajemen Pertambangan)
 
+## 👤 Pengembang
+- Nama: Ahmad Syaifuddin
+- NIM: 2210010111
+- Mata Kuliah: Pemrograman Berorientasi Objek 2
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
 ![GitHub issues](https://img.shields.io/github/issues/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111)
 
-## Introduction
-This repository contains a Java project for mining-related functionalities. It is part of the PBO2 (Object-Oriented Programming) course project.
+# Sistem Informasi Pertambangan
 
-## Installation
-To run this project, you need to have Java installed on your machine. Follow these steps to set up the project:
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111.git
-    ```
-2. Navigate to the project directory:
+## 📝 Deskripsi Proyek
+Sistem Informasi Pertambangan adalah aplikasi berbasis Java yang dirancang untuk mengelola dan memantau operasi pertambangan. Proyek ini dikembangkan sebagai bagian dari tugas mata kuliah Pemrograman Berorientasi Objek 2 dengan NIM 2210010111.
+
+## 💡 Fitur Utama
+- Manajemen Data Tambang
+ - Pencatatan lokasi tambang
+ - Informasi jenis mineral
+ - Status operasional tambang
+ 
+- Pengelolaan Produksi
+ - Pencatatan hasil produksi harian
+ - Perhitungan output tambang
+ - Monitoring target produksi
+ 
+- Manajemen Peralatan
+ - Inventaris alat berat
+ - Jadwal pemeliharaan
+ - Status operasional peralatan
+ 
+- Manajemen Karyawan
+ - Data pekerja tambang
+ - Jadwal shift kerja
+ - Catatan kehadiran
+
+- Laporan dan Analisis
+ - Laporan produksi
+ - Analisis efisiensi
+ - Grafik performa tambang
+
+## 🛠️ Teknologi yang Digunakan
+- Java (JDK 8+)
+- MySQL Database
+- NetBeans IDE
+- XAMPP
+- iReport untuk pembuatan laporan
+
+## ⚙️ Persyaratan Sistem
+- Java Development Kit (JDK) 8 atau lebih tinggi
+- MySQL Server 5.7 atau lebih tinggi
+- NetBeans IDE 8.2 atau lebih tinggi
+- RAM minimal 4GB
+- Sistem Operasi: Windows 10/11
+
+## 📥 Cara Instalasi
+1. Clone repository ini
+```bash
+git clone https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111.git
+```
+2. Import database
+- Buka XAMPP Control Panel
+- Start MySQL dan Apache
+- Buka phpMyAdmin
+- Buat database baru dengan nama `db_pertambangan`
+- Import file SQL dari folder `database`
+
+3. Buka Project di NetBeans
+- Buka NetBeans IDE
+- Pilih Menu File > Open Project
+- Pilih direktori project
+- Tunggu proses loading selesai
+
+4. Konfigurasi Database
+- Buka file `crud.java`
+- Sesuaikan username dan password database
+- Pastikan port MySQL sesuai
+
+5. Menjalankan Aplikasi
+- Build project (Shift + F11)
+- Run project (F6)
+
+Navigate to the project directory:
     ```bash
     cd PBO2_Pertambangan_2210010111
     ```
-3. Compile the Java files:
+Compile the Java files:
     ```bash
     javac src/*.java
     ```
-4. Run the project:
+Run the project:
     ```bash
     java src/Main
     ```
-
-## Usage
-Provide details on how to use the application here. Include any necessary commands or configurations.
-
 
 ## Demo/Preview
 ### Halaman Utama
@@ -46,8 +110,6 @@ Provide details on how to use the application here. Include any necessary comman
 ### Form Stokpile
 ![form stokpile](https://github.com/user-attachments/assets/5811a797-c15d-4c11-bd36-35d1928caa80)
 
-
-
 ## License
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111/blob/main/LICENSE) file for details.
 
@@ -56,3 +118,6 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 - **Last updated:** Januari 15, 2025
 - **Language:** Java ☕
 
+---
+⭐ Dibuat dengan semangat dan dedikasi untuk memenuhi tugas PBO2
+```
