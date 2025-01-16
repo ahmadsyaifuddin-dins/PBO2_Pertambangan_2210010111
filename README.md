@@ -118,4 +118,4 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 - **Last updated:** Januari 15, 2025
 - **Language:** Java ☕
 
-<p><center>⭐ Dibuat dengan semangat dan dedikasi untuk memenuhi tugas PBO2</center></p>
+<p align="center">⭐ Dibuat dengan semangat dan dedikasi untuk memenuhi tugas PBO2</p>
