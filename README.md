@@ -63,8 +63,8 @@ git clone https://github.com/ahmadsyaifuddin-dins/PBO2_Pertambangan_2210010111.g
 - Buka XAMPP Control Panel
 - Start MySQL dan Apache
 - Buka phpMyAdmin
-- Buat database baru dengan nama `db_pertambangan`
-- Import file SQL dari folder `database`
+- Buat database baru dengan nama `2210010111_pertambangan.sql`
+- Import file SQL ke PHPMyAdmin
 
 3. Buka Project di NetBeans
 - Buka NetBeans IDE
